@@ -4,3 +4,6 @@ venv_booking
 .idea
 */migrations
 /migrations
+*/migrations/
+*/migrations/*.py
+*/migrations/__pycache__/
