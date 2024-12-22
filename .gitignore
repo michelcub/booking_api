@@ -2,3 +2,5 @@
 /venv_booking
 venv_booking
 .idea
+*/migrations
+/migrations

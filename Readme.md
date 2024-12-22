@@ -24,8 +24,8 @@ project/
 └── manage.py
 `
 
-#Aplicaciones y su funcionalidad
-##users/
+# Aplicaciones y su funcionalidad
+## users/
 Gestión de usuarios, incluyendo:
 
 Registro, inicio de sesión y autenticación.
@@ -33,7 +33,7 @@ Recuperación de contraseñas.
 Perfiles de usuario (actualización de información personal).
 Gestión de roles y permisos.
 
-##destinations/
+## destinations/
 Gestión de destinos turísticos, incluyendo:
 
 Listado y detalles de destinos.
@@ -41,7 +41,7 @@ Clasificación por categorías (playas, montañas, ciudades, etc.).
 Almacenamiento de información multimedia (imágenes, videos).
 Información adicional como clima, actividades y puntos de interés.
 
-##accommodation/
+## accommodation/
 Gestión de alojamientos:
 
 Hoteles, casas, departamentos, etc.
@@ -49,7 +49,7 @@ Integración con proveedores externos o datos manuales.
 Detalles como precios, disponibilidad, y servicios incluidos.
 Galerías de imágenes.
 
-##reservations/
+## reservations/
 Sistema de reservas:
 
 Proceso de reserva para destinos y alojamientos.
@@ -57,7 +57,7 @@ Gestión de fechas disponibles.
 Visualización y modificación de reservas activas por el usuario.
 Cancelaciones y reembolsos.
 
-##payments/
+## payments/
 Procesamiento de pagos:
 
 Integración con pasarelas de pago (Stripe, PayPal, etc.).
@@ -65,7 +65,7 @@ Gestión de transacciones (historial, reembolsos).
 Seguridad (almacenamiento de tokens, prevención de fraudes).
 Notificaciones relacionadas con pagos (confirmaciones, fallos).
 
-##reviews/
+## reviews/
 Sistema de valoraciones y opiniones:
 
 Opiniones de usuarios sobre destinos y alojamientos.
@@ -73,7 +73,7 @@ Sistema de calificación (por ejemplo, 1-5 estrellas).
 Moderación de comentarios (eliminación de contenido ofensivo).
 Visualización de estadísticas basadas en opiniones.
 
-##search/
+## search/
 Búsqueda avanzada:
 
 Motor de búsqueda para destinos, alojamientos y servicios.
@@ -81,7 +81,7 @@ Filtros como rango de precios, ubicaciones, fechas y calificaciones.
 Resultados optimizados por relevancia.
 Búsquedas recientes y sugerencias personalizadas.
 
-##notifications/
+## notifications/
 Gestión de notificaciones:
 
 Notificaciones en tiempo real (email, SMS, push).
@@ -89,7 +89,7 @@ Alertas sobre reservas, pagos y promociones.
 Personalización de preferencias de notificación.
 Registro de notificaciones enviadas.
 
-##admin/
+## admin/
 Panel de administración:
 
 Herramientas para gestionar usuarios, reservas, pagos y contenido.
@@ -97,7 +97,7 @@ Acceso restringido por roles (administrador, moderador, etc.).
 Visualización de estadísticas y reportes internos.
 Configuración global del sistema.
 
-##analytics/
+## analytics/
 Estadísticas y análisis:
 
 Métricas sobre reservas, opiniones y tráfico del sistema.
@@ -105,7 +105,7 @@ Integración con herramientas externas como Google Analytics.
 Tableros interactivos para el análisis de datos.
 Seguimiento de objetivos y conversiones.
 
-##support/
+## support/
 Soporte al cliente:
 
 Sistema de tickets para reportar problemas o hacer consultas.
@@ -113,7 +113,7 @@ Chat en vivo o integración con plataformas externas (como Zendesk).
 Respuestas automáticas (FAQ o chatbots).
 Gestión de historial de interacciones con el cliente.
 
-##reports/
+## reports/
 Generación de informes:
 
 Descarga de informes en formatos como PDF o Excel.
@@ -122,7 +122,7 @@ Personalización de periodos y métricas en los reportes.
 Automatización del envío de reportes periódicos.
 
 
-##users/
+## users/
 User
 
 username
@@ -141,7 +141,7 @@ last_name
 phone_number
 address
 
-##destinations/
+## destinations/
 Destination
 
 name
@@ -155,7 +155,7 @@ Category
 name
 description
 
-##accommodation/
+## accommodation/
 Accommodation
 
 name
@@ -171,7 +171,7 @@ room_type
 capacity
 price
 
-##reservations/
+## reservations/
 Reservation
 
 user (ForeignKey)
@@ -186,7 +186,7 @@ reservation (ForeignKey)
 guests
 special_requests
 
-##payments/
+## payments/
 Payment
 
 user (ForeignKey)
@@ -201,7 +201,7 @@ reservation (ForeignKey)
 invoice_number
 issue_date
 
-##reviews/
+## reviews/
 Review
 
 user (ForeignKey)
@@ -216,7 +216,7 @@ reason
 user (ForeignKey)
 created_at
 
-##search/
+## search/
 SearchHistory
 
 user (ForeignKey)
@@ -241,7 +241,7 @@ email_notifications
 sms_notifications
 push_notifications
 
-##admin/
+## admin/
 AdminLog
 
 admin_user (ForeignKey)
@@ -253,7 +253,7 @@ SystemSetting
 key
 value
 
-##analytics/
+## analytics/
 UserAnalytics
 
 user (ForeignKey)
@@ -281,7 +281,7 @@ sender
 message
 timestamp
 
-##reports/
+## reports/
 Report
 
 type
