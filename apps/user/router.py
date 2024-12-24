@@ -15,20 +15,6 @@ auth_paths = [
 ]
 
 urlpatterns = [
-    # path("", include(user_router.urls)),
+    path("", include(user_router.urls)),
     *auth_paths,
-    path(
-        "user/",
-        UserModelViewSet.as_view(
-            {
-                "put": "update",
-                "post": "create",
-                "get": "retrieve",
-                "patch": "partial_update",
-                "delete": "destroy",
-            }
-        ),
-        name="user-update",
-    ),
-    path("user/list/", UserModelViewSet.as_view({"get": "list"})),
 ]

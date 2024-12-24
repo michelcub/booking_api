@@ -14,10 +14,6 @@ class UserModelViewSet(ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticatedOrOnlyCreate]
     serializer_class = UserSerializer
-    # http_method_names = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-
-    def get_object(self, request):
-        return request.user
 
     def create(self, request, *args, **kwargs):
         # Extraer datos del perfil si están presentes
@@ -54,7 +50,11 @@ class UserModelViewSet(ModelViewSet):
         return Response(serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, *args, **kwargs):
-        serialized = UserSerializer(data=request.user)
+        user_with_pk = self.get_object()
+        if user_with_pk.pk != request.user.pk and not request.user.is_staff:
+            return Response({"message": "This operation is only allowed fro, staff"})
+
+        serialized = UserSerializer(data=user_with_pk)
         if serialized.is_valid():
             return Response(serialized.data, status.HTTP_200_OK)
         return Response(
@@ -63,19 +63,21 @@ class UserModelViewSet(ModelViewSet):
 
     def update(self, request, *args, **kwargs):
 
+        user_with_pk = self.get_object()
+        if user_with_pk.pk != request.user.pk and not request.user.is_staff:
+            return Response({"message": "This operation is only allowed fro, staff"})
+
         user_data = request.data
         profile_data = user_data.pop("profile", None)
 
-        current_user = self.get_object()
-
         user_serialized = self.get_serializer(
-            current_user, data=user_data, partial=False
+            user_with_pk, data=user_data, partial=False
         )
         user_serialized.is_valid(raise_exception=True)
         self.perform_update(user_serialized)
 
         if profile_data:
-            current_profile = getattr(current_user, "profile")
+            current_profile = getattr(user_with_pk, "profile")
             profile_serialized = ProfileSerializer(
                 current_profile, data=profile_data, partial=False
             )
@@ -86,6 +88,7 @@ class UserModelViewSet(ModelViewSet):
         return Response(user_serialized.data, status=status.HTTP_200_OK)
         return Response("ok", status.HTTP_200_OK)
 
+    def list(self, request, *args, **kwargs):
         if request.user and not request.user.is_staff:
             return Response(
                 {"message": "This action is only allowed to staff"},
@@ -95,24 +98,31 @@ class UserModelViewSet(ModelViewSet):
         return Response(user_list_serialized.data, status=status.HTTP_200_OK)
 
     def partial_update(self, request, *args, **kwargs):
+        user_with_pk = self.get_object()
+        if user_with_pk.pk != request.user.pk and not request.user.is_staff:
+            return Response({"message": "This operation is only allowed fro, staff"})
+
         user_data = request.data
         profile_data = user_data.pop("profile")
-        current_user = self.get_object()
-        user_serialized = UserSerializer(current_user, data=user_data, partial=True)
+        user_serialized = UserSerializer(user_with_pk, data=user_data, partial=True)
         user_serialized.is_valid(raise_exception=True)
         user_serialized.save()
         if profile_data:
             profile_serialized = ProfileSerializer(
-                current_user.profile, data=profile_data, partial=True
+                user_with_pk.profile, data=profile_data, partial=True
             )
             profile_serialized.is_valid(raise_exception=True)
             profile_serialized.save()
         return Response(user_serialized.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
-        current_user = self.get_object()
-        current_user.is_active = False
-        current_user.save()
+        user_with_pk = self.get_object()
+        if user_with_pk.pk != request.user.pk and not request.user.is_staff:
+            return Response({"message": "This operation is only allowed fro, staff"})
+
+        user_with_pk = self.get_object()
+        user_with_pk.is_active = False
+        user_with_pk.save()
         return Response(
             {"message": "User deleted successful"}, status=status.HTTP_200_OK
         )
